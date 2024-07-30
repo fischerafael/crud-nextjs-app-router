@@ -3,10 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { services } from "./data";
 
-export const createTodoAction = async (formData: FormData) => {
-  const description = formData.get("description") as string;
+export const createTodoAction = async (description: string) => {
   await services.addTodo(description);
-  formData.set("description", "");
   revalidatePath("/todos");
 };
 

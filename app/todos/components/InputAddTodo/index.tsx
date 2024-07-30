@@ -1,16 +1,18 @@
 "use client";
 
 import { useRef } from "react";
+import { Button } from "../Button";
 
 export const InputAddTodo = ({
   action,
 }: {
-  action: (formData: FormData) => Promise<void>;
+  action: (description: string) => Promise<void>;
 }) => {
   const ref = useRef<HTMLFormElement>(null);
 
   const onAction = async (formData: FormData) => {
-    await action(formData);
+    const description = formData.get("description") as string;
+    await action(description);
     ref.current?.reset();
   };
 
@@ -21,12 +23,12 @@ export const InputAddTodo = ({
         name="description"
         className="p-4 w-full rounded"
       />
-      <button
+      <Button
         type="submit"
         className=" bg-zinc-800 p-4 px-8 text-zinc-50 rounded"
       >
         Add
-      </button>
+      </Button>
     </form>
   );
 };
